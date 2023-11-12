@@ -6,6 +6,7 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import json
+import os
 
 
 class test_file_storage(unittest.TestCase):
@@ -16,6 +17,11 @@ class test_file_storage(unittest.TestCase):
 
         self.b_model = BaseModel()
         self.storage = FileStorage()
+
+    def tearDown(self):
+        FileStorage._FileStorage__objects = {}
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     # _____________________________________________________________________________________
 
@@ -43,6 +49,15 @@ class test_file_storage(unittest.TestCase):
 
         for v in all_objects.values():
             self.assertNotIsInstance(v, dict)
+
+    # _____________________________________________________________________________________
+
+    def test_object_values_empty(self):
+        """Test __objects if it is empty"""
+
+        all_objects = self.storage.all()
+
+        print(all_objects)
 
     # _____________________________________________________________________________________
 

@@ -4,7 +4,9 @@
 
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from datetime import datetime
+import os
 
 
 class test_base_model(unittest.TestCase):
@@ -14,6 +16,11 @@ class test_base_model(unittest.TestCase):
         """Initializes on each test method"""
         self.b1 = BaseModel()
         self.b1.name = "Aysha Ehab"
+
+    def tearDown(self):
+        FileStorage._FileStorage__objects = {}
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
     # _________________________________________________________
 
