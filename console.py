@@ -13,14 +13,17 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, cmd_line):
         """Quit command to exit the program"""
         return True
+    # ___________________________________________________________________________
 
     def do_EOF(self, cmd_line):
         """Exits after receiving the EOF signal"""
         return True
+    # ___________________________________________________________________________
 
     def emptyline(self):
         """an empty line + ENTER should not execute anything"""
         pass
+    # ___________________________________________________________________________
 
     def do_create(self, cmd_line):
         """
@@ -38,6 +41,7 @@ class HBNBCommand(cmd.Cmd):
 
         except Exception:
             print("** class doesn't exist **")
+    # ___________________________________________________________________________
 
     def do_show(self, cmd_line):
         """
@@ -64,6 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print(v)
         except KeyError:
             print("** no instance found **")
+    # ___________________________________________________________________________
 
     def do_destroy(self, cmd_line):
         """
@@ -89,6 +94,7 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
         storage.save()
+    # ___________________________________________________________________________
 
     def do_all(self, cmd_line):
         """
@@ -111,6 +117,7 @@ class HBNBCommand(cmd.Cmd):
                 list_of_obj.append(v)
 
         print(list_of_obj)
+    # ___________________________________________________________________________
 
     def do_update(self, cmd_line):
         """
