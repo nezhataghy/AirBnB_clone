@@ -32,7 +32,8 @@ class FileStorage:
         """
 
         # Create string format for the key of `__objects` attribute
-        objects_key = f"{obj.__class__.__name__}.{obj.id}"
+        # objects_key = f"{obj.__class__.__name__}.{obj.id}"
+        objects_key = str(obj.__class__.__name__) + "." + str(obj.id)
 
         # Set the instance to the key has been created (`objects_key`)
         FileStorage.__objects[objects_key] = obj
@@ -59,7 +60,7 @@ class FileStorage:
         otherwise, do nothing.
         """
 
-        # Do nothing, if the file not exists
+        # Do nothing, if the file does not exist
         if not exists(FileStorage.__file_path):
             return
 
