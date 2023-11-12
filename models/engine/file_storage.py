@@ -13,10 +13,7 @@ from os.path import exists
 
 
 class FileStorage:
-    """
-    Serializes instances to a JSON file and
-    deserializes JSON file to instances
-    """
+    """Class for serializtion and deserialization of base classes."""
 
     __file_path = "file.json"
     __objects = {}
@@ -38,12 +35,8 @@ class FileStorage:
     # _____________________________________________________________________________________
 
     def new(self, obj):
-        """
-         Sets in `__objects` the `obj` with key <obj class name>.id
+        """Sets in `__objects` the `obj` with key <obj class name>.id"""
 
-         args:
-            obj: The instance of the class
-        """
 
         # Create string format for the key of `__objects` attribute
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
@@ -69,11 +62,7 @@ class FileStorage:
     # _____________________________________________________________________________________
 
     def reload(self):
-        """
-        deserializes the JSON file to __objects,
-        (only if the JSON file (__file_path) exists
-        otherwise, do nothing.
-        """
+        """Deserializes JSON file into __objects."""
 
         # Do nothing, if the file not exists
         if not exists(self.__file_path):
