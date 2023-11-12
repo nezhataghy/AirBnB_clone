@@ -2,6 +2,8 @@
 """This module is the storage engine of the objects"""
 
 import json
+from models.base_model import BaseModel
+from os.path import exists
 
 
 class FileStorage:
@@ -48,20 +50,3 @@ class FileStorage:
             json.dump(FileStorage.__objects, wf)
 
     # _____________________________________________________________________________________
-
-    def reload(self):
-        """
-        deserializes the JSON file to __objects,
-        (only if the JSON file (__file_path) exists
-        otherwise, do nothing.
-        """
-
-        # Do nothing, if the file not exists
-        try:
-            with open(self.__file_path, "r") as file:
-                dictionary = json.loads(file.read())
-                for value in dictionary.values():
-                    cls_name = value["__class__"]
-                    self.new(eval(cls_name)(**value))
-        except Exception:
-            pass
