@@ -55,7 +55,7 @@ class FileStorage:
         """Deserializes JSON file into __objects."""
 
         try:
-            # convert the json string representation to dictionary representation
+            # convert the json string representation to dictionary represen
             with open(self.__file_path, 'r') as rf:
                 loaded_data = json.load(rf)
 
