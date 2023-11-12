@@ -2,8 +2,6 @@
 """This module is the storage engine of the objects"""
 
 import json
-from models.base_model import BaseModel
-from os.path import exists
 
 
 class FileStorage:
