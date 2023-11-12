@@ -57,8 +57,6 @@ class test_file_storage(unittest.TestCase):
 
         all_objects = self.storage.all()
 
-        print(all_objects)
-
     # _____________________________________________________________________________________
 
     def test_object_values_type(self):
