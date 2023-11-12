@@ -33,9 +33,9 @@ class FileStorage:
 
         # Create string format for the key of `__objects` attribute
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
-        value_as_dict = obj
+
         # Set the instance to the key has been created (`objects_key`)
-        FileStorage.__objects[objects_key] = value_as_dict
+        FileStorage.__objects[objects_key] = obj
 
     # _____________________________________________________________________________________
 
