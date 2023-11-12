@@ -24,7 +24,7 @@ class test_base_model(unittest.TestCase):
 
     # _________________________________________________________
 
-    def test_name(self):
+    def test_adding_name(self):
         """Checks that an attribute can be added"""
         self.assertEqual("Aysha Ehab", self.b1.name)
 
