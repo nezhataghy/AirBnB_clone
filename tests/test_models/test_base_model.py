@@ -6,6 +6,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class test_base_model(unittest.TestCase):
     """defines test cases for the base model"""
 
@@ -20,6 +21,13 @@ class test_base_model(unittest.TestCase):
         """Tests the instance id type"""
 
         self.assertIs(type(self.b1.id), str)
+
+    # _________________________________________________________
+
+    def test_ids_differ(self):
+        """ Checks that the ids between two instances are different"""
+        b2 = BaseModel()
+        self.assertNotEqual(b2.id, self.b1.id)
 
     # _________________________________________________________
 
