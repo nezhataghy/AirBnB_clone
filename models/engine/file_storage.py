@@ -37,7 +37,6 @@ class FileStorage:
     def new(self, obj):
         """Sets in `__objects` the `obj` with key <obj class name>.id"""
 
-
         # Create string format for the key of `__objects` attribute
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
 
@@ -51,6 +50,7 @@ class FileStorage:
         """Serializes __objects to the JSON file at __file_path"""
 
         dict_of_obj = {}
+
         # Convert the `__objects` values (obj) to a dictionary representation
         for k, v in self.__objects.items():
             dict_of_obj[k] = v.to_dict()
