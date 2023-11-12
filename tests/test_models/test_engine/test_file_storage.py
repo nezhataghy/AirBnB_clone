@@ -6,64 +6,82 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
+
 class test_file_storage(unittest.TestCase):
-  """defines test cases for the file_storage"""
+    """defines test cases for the file_storage"""
 
-  def setUp(self):
-    """Initializes on each test method"""
+    def setUp(self):
+        """Initializes on each test method"""
 
-    self.b_model = BaseModel()
-    self.storage = FileStorage()
+        self.b_model = BaseModel()
+        self.storage = FileStorage()
 
-  # _____________________________________________________________________________________
+    # _____________________________________________________________________________________
 
-  def test_pv_attrs(self):
-    """Check the private attributes if it is private."""
-    
-    
-    with self.assertRaises(AttributeError):
-      self.assertEqual(FileStorage.__file_path, "file.json")
-      self.assertEqual(self.storage.__file_path, "file.json")
-      self.assertEqual(self.storage._file_path, "file.json")
-      self.assertEqual(self.storage.file_path, "file.json")
-      self.assertEqual(FileStorage.__objects, "file.json")
-      self.assertEqual(self.storage.__objects, "file.json")
-      self.assertEqual(self.storage._object, "file.json")
-      self.assertEqual(self.storage.object, "file.json")
+    def test_pv_attrs(self):
+        """Check the private attributes if it is private."""
 
-  # _____________________________________________________________________________________
+        with self.assertRaises(AttributeError):
+            self.assertEqual(FileStorage.__file_path, "file.json")
+            self.assertEqual(self.storage.__file_path, "file.json")
+            self.assertEqual(self.storage._file_path, "file.json")
+            self.assertEqual(self.storage.file_path, "file.json")
+            self.assertEqual(FileStorage.__objects, "file.json")
+            self.assertEqual(self.storage.__objects, "file.json")
+            self.assertEqual(self.storage._object, "file.json")
+            self.assertEqual(self.storage.object, "file.json")
 
-  def test_object_type(self):
-    """Test __objects if it is empty"""
-    
-    all_objects = self.storage.all()
+    # _____________________________________________________________________________________
 
-    self.assertIs(type(all_objects), dict)
+    def test_object_type(self):
+        """Test __objects if it is empty"""
 
-    for v in all_objects.values():
-      self.assertNotIsInstance(v, dict)
-  
-  # _____________________________________________________________________________________
+        all_objects = self.storage.all()
 
-  def test_new_with_noArg(self):
+        self.assertIs(type(all_objects), dict)
 
-    with self.assertRaises(TypeError):
-      self.storage.new()
+        for v in all_objects.values():
+            self.assertNotIsInstance(v, dict)
 
-  # _____________________________________________________________________________________
+    # _____________________________________________________________________________________
 
-  def test_new_with_moreArgs(self):
+    def test_object_values_type(self):
+        """Test __objects if it is empty"""
 
-    with self.assertRaises(TypeError):
-      self.storage.new("ehab", "aysha")
+        all_objects = self.storage.all()
 
-  # _____________________________________________________________________________________
+        for v in all_objects.values():
+            self.assertNotIsInstance(v, dict)
 
-  def test_object_notempty(self):
-    """Call new and check if __objects is not empty"""
+    # _____________________________________________________________________________________
 
-    # self.storage.new(self.b_model)
-    # self.storage._FileStorage__file_path
-    # key_format = f"{self.b_model.__class__.__name__}.{self.b_model.id}"
+    def test_new_with_noArg(self):
 
-    
+        with self.assertRaises(TypeError):
+            self.storage.new()
+
+    # _____________________________________________________________________________________
+
+    def test_new_with_moreArgs(self):
+
+        with self.assertRaises(TypeError):
+            self.storage.new("ehab", "aysha")
+
+    # _____________________________________________________________________________________
+
+    def test_object_hasInstance(self):
+        """Call new and check if __objects value is instance"""
+
+        all_objects = self.storage._FileStorage__objects
+
+        self.storage.new(self.b_model)
+        key_format = f"{self.b_model.__class__.__name__}.{self.b_model.id}"
+
+        self.assertIn(key_format, all_objects)
+
+        self.assertIsInstance(self.b_model, type(all_objects[key_format]))
+
+    # _____________________________________________________________________________________
+
+    def test_save(self):
+        """Tests the save method"""
