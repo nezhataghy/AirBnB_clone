@@ -17,15 +17,6 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    __classes = {
-        "BaseModel": BaseModel,
-        "User": User,
-        "Place": Place,
-        "Amenity": Amenity,
-        "City": City,
-        "Review": Review,
-        "State": State
-    }
 
     def all(self):
         """Returns the dictionary `__objects` while values are instances"""
@@ -69,15 +60,12 @@ class FileStorage:
             return
 
         # convert the json string representation to dictionary representation
-        with open(self.__file_path, 'r', encoding="utf8") as rf:
+        with open(self.__file_path, 'r') as rf:
             loaded_data = json.load(rf)
 
         # Create instance from the extracted dictionary representation
         for k, obj_dict in loaded_data.items():
-            class_name = obj_dict.get("__class__")
 
             # Convert the values of the dictionary (obj_dict) to instances
-            if class_name in self.__classes:
-                current_class = self.__classes[class_name]
-                instance = current_class(**obj_dict)
-                self.__objects[k] = instance
+            instance = eval(k.split(".")[0])(**obj_dict)
+            self.__objects[k] = instance
