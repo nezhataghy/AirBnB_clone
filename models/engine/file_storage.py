@@ -44,11 +44,11 @@ class FileStorage:
 
         dict_of_obj = {}
         # Convert the `__objects` values (obj) to a dictionary representation
-        for k, v in FileStorage.__objects.items():
+        for k, v in self.__objects.items():
             dict_of_obj[k] = v.to_dict()
 
         # Convert the dictionary representation to a json string representation
-        with open(FileStorage.__file_path, "w", encoding="utf8") as wf:
+        with open(self.__file_path, "w", encoding="utf8") as wf:
             json.dump(dict_of_obj, wf)
 
     # _____________________________________________________________________________________
@@ -61,11 +61,11 @@ class FileStorage:
         """
 
         # Do nothing, if the file not exists
-        if not exists(FileStorage.__file_path):
+        if not exists(self.__file_path):
             return
 
         # convert the json string representation to dictionary representation
-        with open(FileStorage.__file_path, 'r', encoding="utf8") as rf:
+        with open(self.__file_path, 'r', encoding="utf8") as rf:
             loaded_data = json.load(rf)
 
         # Create instance from the extracted dictionary representation
@@ -73,7 +73,7 @@ class FileStorage:
             class_name = obj_dict.get("__class__")
 
             # Convert the values of the dictionary (obj_dict) to instances
-            if class_name in FileStorage.__classes:
-                current_class = FileStorage.__classes[class_name]
+            if class_name in self.__classes:
+                current_class = self.__classes[class_name]
                 instance = current_class(**obj_dict)
-                FileStorage.__objects[k] = instance
+                self.__objects[k] = instance
