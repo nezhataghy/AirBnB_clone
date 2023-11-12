@@ -12,8 +12,8 @@ class test_base_model(unittest.TestCase):
 
     def setUp(self):
         """Initializes on each test method"""
-
         self.b1 = BaseModel()
+        self.b1.name = "Aysha Ehab"
 
     # _________________________________________________________
 
@@ -21,6 +21,13 @@ class test_base_model(unittest.TestCase):
         """Tests the instance id type"""
 
         self.assertIs(type(self.b1.id), str)
+
+    # _________________________________________________________
+
+    def test_adding_name(self):
+        """Checks that an attribute can be added"""
+
+        self.assertEqual("Aysha Ehab", self.b1.name)
 
     # _________________________________________________________
 
