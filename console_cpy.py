@@ -12,44 +12,6 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __myClasses = {"BaseModel": BaseModel}
 
-
-    """
-    @staticmethod
-    def __cmd_validation(*args):
-
-        is_correct = 1
-
-        if class_name == "":
-            print("** class name missing **")
-            is_correct = 0
-        elif class_name != "BaseModel":
-            print("** class doesn't exist **")
-            is_correct = 0
-        else:
-            is_correct = 1
-
-        return is_correct
-    """
-
-
-    """
-    @staticmethod
-    def __cmd_validation(class_name):
-
-        is_correct = 1
-
-        if class_name == "":
-            print("** class name missing **")
-            is_correct = 0
-        elif class_name != "BaseModel":
-            print("** class doesn't exist **")
-            is_correct = 0
-        else:
-            is_correct = 1
-
-        return is_correct
-    """
-
     def do_EOF(self, line):
         """Exits the program"""
 
