@@ -49,7 +49,7 @@ class FileStorage:
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
 
         # Set the instance to the key has been created (`objects_key`)
-
+        self.__objects[objects_key] = obj
         self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     # _____________________________________________________________________________________
@@ -57,13 +57,13 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file at __file_path"""
 
-        with open(self.__file_path, "w") as wf:
-            dict_of_obj = {}
-            # Convert the `__objects` values (obj) to a dictionary representation
-            for k, v in self.__objects.items():
-                dict_of_obj[k] = v.to_dict()
+        dict_of_obj = {}
+        # Convert the `__objects` values (obj) to a dictionary representation
+        for k, v in self.__objects.items():
+            dict_of_obj[k] = v.to_dict()
 
-            # Convert the dictionary representation to a json string representation
+        # Convert the dictionary representation to a json string representation
+        with open(self.__file_path, "w", encoding="utf8") as wf:
             json.dump(dict_of_obj, wf)
 
     # _____________________________________________________________________________________
