@@ -49,6 +49,7 @@ class FileStorage:
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
 
         # Set the instance to the key has been created (`objects_key`)
+
         self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     # _____________________________________________________________________________________
@@ -56,13 +57,13 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file at __file_path"""
 
-        dict_of_obj = {}
-        # Convert the `__objects` values (obj) to a dictionary representation
-        for k, v in self.__objects.items():
-            dict_of_obj[k] = v.to_dict()
+        with open(self.__file_path, "w") as wf:
+            dict_of_obj = {}
+            # Convert the `__objects` values (obj) to a dictionary representation
+            for k, v in self.__objects.items():
+                dict_of_obj[k] = v.to_dict()
 
-        # Convert the dictionary representation to a json string representation
-        with open(self.__file_path, "w", encoding="utf8") as wf:
+            # Convert the dictionary representation to a json string representation
             json.dump(dict_of_obj, wf)
 
     # _____________________________________________________________________________________
@@ -75,19 +76,19 @@ class FileStorage:
         """
 
         # Do nothing, if the file not exists
-        try:
-            # convert the json string representation to dictionary representation
-            with open(self.__file_path, 'r', encoding="utf8") as rf:
-                loaded_data = json.load(rf)
+        if not exists(self.__file_path):
+            return
 
-            # Create instance from the extracted dictionary representation
-            for k, obj_dict in loaded_data.items():
-                class_name = obj_dict.get("__class__")
+        # convert the json string representation to dictionary representation
+        with open(self.__file_path, 'r', encoding="utf8") as rf:
+            loaded_data = json.load(rf)
 
-                # Convert the values of the dictionary (obj_dict) to instances
-                if class_name in self.__classes:
-                    current_class = self.__classes[class_name]
-                    instance = current_class(**obj_dict)
-                    self.__objects[k] = instance
-        except FileNotFoundError:
-            pass
+        # Create instance from the extracted dictionary representation
+        for k, obj_dict in loaded_data.items():
+            class_name = obj_dict.get("__class__")
+
+            # Convert the values of the dictionary (obj_dict) to instances
+            if class_name in self.__classes:
+                current_class = self.__classes[class_name]
+                instance = current_class(**obj_dict)
+                self.__objects[k] = instance
