@@ -46,6 +46,8 @@ class FileStorage:
         """
 
         # Create string format for the key of `__objects` attribute
+        objects_key = f"{obj.__class__.__name__}.{obj.id}"
+
         # Set the instance to the key has been created (`objects_key`)
         self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
@@ -73,19 +75,19 @@ class FileStorage:
         """
 
         # Do nothing, if the file not exists
-        if not exists(self.__file_path):
-            return
+        try:
+            # convert the json string representation to dictionary representation
+            with open(self.__file_path, 'r', encoding="utf8") as rf:
+                loaded_data = json.load(rf)
 
-        # convert the json string representation to dictionary representation
-        with open(self.__file_path, 'r', encoding="utf8") as rf:
-            loaded_data = json.load(rf)
+            # Create instance from the extracted dictionary representation
+            for k, obj_dict in loaded_data.items():
+                class_name = obj_dict.get("__class__")
 
-        # Create instance from the extracted dictionary representation
-        for k, obj_dict in loaded_data.items():
-            class_name = obj_dict.get("__class__")
-
-            # Convert the values of the dictionary (obj_dict) to instances
-            if class_name in self.__classes:
-                current_class = self.__classes[class_name]
-                instance = current_class(**obj_dict)
-                self.__objects[k] = instance
+                # Convert the values of the dictionary (obj_dict) to instances
+                if class_name in self.__classes:
+                    current_class = self.__classes[class_name]
+                    instance = current_class(**obj_dict)
+                    self.__objects[k] = instance
+        except FileNotFoundError:
+            pass
