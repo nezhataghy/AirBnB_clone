@@ -19,7 +19,7 @@ class FileStorage:
     def all(self):
         """Returns the dictionary `__objects` while values are instances"""
 
-        return FileStorage.__objects
+        return self.__objects
 
     # _____________________________________________________________________________________
 
@@ -35,7 +35,7 @@ class FileStorage:
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
 
         # Set the instance to the key has been created (`objects_key`)
-        FileStorage.__objects[objects_key] = obj
+        self.__objects[objects_key] = obj
 
     # _____________________________________________________________________________________
 
