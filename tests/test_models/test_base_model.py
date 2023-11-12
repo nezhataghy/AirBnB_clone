@@ -24,10 +24,9 @@ class test_base_model(unittest.TestCase):
 
     # _________________________________________________________
 
-    def test_uniq_id(self):
-        """Tests for unique user ids."""
-        u = [BaseModel().id for i in range(1000)]
-        self.assertEqual(len(set(u)), len(u))
+    def test_name(self):
+        """Checks that an attribute can be added"""
+        self.assertEqual("Aysha Ehab", self.b1.name)
 
     # _________________________________________________________
 
