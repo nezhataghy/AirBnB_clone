@@ -9,7 +9,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from os.path import exists
 
 
 class FileStorage:
@@ -55,17 +54,16 @@ class FileStorage:
     def reload(self):
         """Deserializes JSON file into __objects."""
 
-        # Do nothing, if the file not exists
-        if not exists(self.__file_path):
-            return
+        try:
+            # convert the json string representation to dictionary representation
+            with open(self.__file_path, 'r') as rf:
+                loaded_data = json.load(rf)
 
-        # convert the json string representation to dictionary representation
-        with open(self.__file_path, 'r') as rf:
-            loaded_data = json.load(rf)
+            # Create instance from the extracted dictionary representation
+            for k, obj_dict in loaded_data.items():
 
-        # Create instance from the extracted dictionary representation
-        for k, obj_dict in loaded_data.items():
-
-            # Convert the values of the dictionary (obj_dict) to instances
-            instance = eval(k.split(".")[0])(**obj_dict)
-            self.__objects[k] = instance
+                # Convert the values of the dictionary (obj_dict) to instances
+                instance = eval(k.split(".")[0])(**obj_dict)
+                self.__objects[k] = instance
+        except FileNotFoundError:
+            pass
