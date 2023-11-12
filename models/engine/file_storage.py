@@ -59,17 +59,11 @@ class FileStorage:
         otherwise, do nothing.
         """
 
-        # Do nothing, if the file not exists
-        if not exists(FileStorage.__file_path):
-            return
-
-        # convert the json string representation to dictionary representation
-        with open(FileStorage.__file_path, 'r', encoding="utf8") as rf:
-            loaded_data = json.load(rf)
-
-        # Create instance from the extracted dictionary representation
-        for k, obj_dict in loaded_data.items():
-            class_name = k.split(".")
-
-            # Convert the values of the dictionary (obj_dict) to instances
-            FileStorage.__objects[k] = globals()[class_name[0]](**obj_dict)
+        try:
+            with open(self.__file_path, "r") as file:
+                dictionary = json.loads(file.read())
+                for value in dictionary.values():
+                    cls_name = value["__class__"]
+                    self.new(eval(cls_name)(**value))
+        except Exception:
+            pass
