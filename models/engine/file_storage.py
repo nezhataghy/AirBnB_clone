@@ -46,10 +46,8 @@ class FileStorage:
         """
 
         # Create string format for the key of `__objects` attribute
-        objects_key = f"{obj.__class__.__name__}.{obj.id}"
-
         # Set the instance to the key has been created (`objects_key`)
-        self.__objects[objects_key] = obj
+        self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     # _____________________________________________________________________________________
 
