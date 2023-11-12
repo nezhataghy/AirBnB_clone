@@ -14,7 +14,7 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    # __classes = {"BaseModel": BaseModel}
+    __classes = {"BaseModel": BaseModel}
 
     def all(self):
         """Returns the dictionary `__objects` while values are instances"""
@@ -33,9 +33,9 @@ class FileStorage:
 
         # Create string format for the key of `__objects` attribute
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
-
+        value_as_dict = obj
         # Set the instance to the key has been created (`objects_key`)
-        FileStorage.__objects[objects_key] = obj
+        FileStorage.__objects[objects_key] = value_as_dict
 
     # _____________________________________________________________________________________
 
@@ -54,11 +54,26 @@ class FileStorage:
     # _____________________________________________________________________________________
 
     def reload(self):
-        try:
-            with open(self.__file_path, "r") as file:
-                dictionary = json.loads(file.read())
-                for value in dictionary.values():
-                    cls_name = value["__class__"]
-                    self.new(eval(cls_name)(**value))
-        except Exception:
-            pass
+        """
+        deserializes the JSON file to __objects,
+        (only if the JSON file (__file_path) exists
+        otherwise, do nothing.
+        """
+
+        # Do nothing, if the file not exists
+        if not exists(FileStorage.__file_path):
+            return
+
+        # convert the json string representation to dictionary representation
+        with open(FileStorage.__file_path, 'r', encoding="utf8") as rf:
+            loaded_data = json.load(rf)
+
+        # Create instance from the extracted dictionary representation
+        for k, obj_dict in loaded_data.items():
+            class_name = obj_dict.get("__class__")
+
+            # Convert the values of the dictionary (obj_dict) to instances
+            if class_name in FileStorage.__classes:
+                current_class = FileStorage.__classes[class_name]
+                instance = current_class(**obj_dict)
+                FileStorage.__objects[k] = instance
