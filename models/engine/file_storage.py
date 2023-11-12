@@ -14,9 +14,7 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    __classes = {
-            "BaseModel": BaseModel
-        }
+    }
 
     def all(self):
         """Returns the dictionary `__objects` while values are instances"""
@@ -71,10 +69,7 @@ class FileStorage:
 
         # Create instance from the extracted dictionary representation
         for k, obj_dict in loaded_data.items():
-            class_name = obj_dict.get("__class__")
+            class_name = k.split(".")
 
             # Convert the values of the dictionary (obj_dict) to instances
-            if class_name in FileStorage.__classes:
-                current_class = FileStorage.__classes[class_name]
-                instance = current_class(**obj_dict)
-                FileStorage.__objects[k] = instance
+            FileStorage.__objects[k] = globals()[class_name[0]](**obj_dict)
