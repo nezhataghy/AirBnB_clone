@@ -5,6 +5,7 @@
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+import json
 
 
 class test_file_storage(unittest.TestCase):
@@ -85,3 +86,23 @@ class test_file_storage(unittest.TestCase):
 
     def test_save(self):
         """Tests the save method"""
+
+        self.storage.new(self.b_model)
+        self.storage.save()
+
+        with open("file.json", "r", encoding="utf8") as rf:
+            all_objects = json.loads(rf.read())
+
+        for v in all_objects.values():
+            self.assertTrue(type(v) is dict)
+
+    # _____________________________________________________________________________________
+
+    def test_reload(self):
+        """Tests the reload method"""
+
+        self.storage.reload()
+        all_objects = self.storage._FileStorage__objects
+
+        for v in all_objects.values():
+            self.assertIsInstance(v, eval(v.__class__.__name__))
