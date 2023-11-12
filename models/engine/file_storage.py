@@ -3,6 +3,12 @@
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from os.path import exists
 
 
@@ -15,13 +21,19 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
     __classes = {
-            "BaseModel": BaseModel
-        }
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "Amenity": Amenity,
+        "City": City,
+        "Review": Review,
+        "State": State
+    }
 
     def all(self):
         """Returns the dictionary `__objects` while values are instances"""
 
-        return FileStorage.__objects
+        return self.__objects
 
     # _____________________________________________________________________________________
 
@@ -37,20 +49,22 @@ class FileStorage:
         objects_key = f"{obj.__class__.__name__}.{obj.id}"
 
         # Set the instance to the key has been created (`objects_key`)
-        FileStorage.__objects[objects_key] = obj
+        self.__objects[objects_key] = obj
+        self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     # _____________________________________________________________________________________
 
     def save(self):
         """Serializes __objects to the JSON file at __file_path"""
 
+        dict_of_obj = {}
         # Convert the `__objects` values (obj) to a dictionary representation
-        for k, v in FileStorage.__objects.items():
-            FileStorage.__objects[k] = v.to_dict()
+        for k, v in self.__objects.items():
+            dict_of_obj[k] = v.to_dict()
 
         # Convert the dictionary representation to a json string representation
-        with open(FileStorage.__file_path, "w", encoding="utf8") as wf:
-            json.dump(FileStorage.__objects, wf)
+        with open(self.__file_path, "w", encoding="utf8") as wf:
+            json.dump(dict_of_obj, wf)
 
     # _____________________________________________________________________________________
 
@@ -62,11 +76,11 @@ class FileStorage:
         """
 
         # Do nothing, if the file not exists
-        if not exists(FileStorage.__file_path):
+        if not exists(self.__file_path):
             return
 
         # convert the json string representation to dictionary representation
-        with open(FileStorage.__file_path, 'r', encoding="utf8") as rf:
+        with open(self.__file_path, 'r', encoding="utf8") as rf:
             loaded_data = json.load(rf)
 
         # Create instance from the extracted dictionary representation
@@ -74,7 +88,7 @@ class FileStorage:
             class_name = obj_dict.get("__class__")
 
             # Convert the values of the dictionary (obj_dict) to instances
-            if class_name in FileStorage.__classes:
-                current_class = FileStorage.__classes[class_name]
+            if class_name in self.__classes:
+                current_class = self.__classes[class_name]
                 instance = current_class(**obj_dict)
-                FileStorage.__objects[k] = instance
+                self.__objects[k] = instance

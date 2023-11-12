@@ -6,6 +6,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class test_base_model(unittest.TestCase):
     """defines test cases for the base model"""
 
@@ -20,6 +21,12 @@ class test_base_model(unittest.TestCase):
         """Tests the instance id type"""
 
         self.assertIs(type(self.b1.id), str)
+
+    # _________________________________________________________
+
+    def test_adding_name(self):
+        """Checks that an attribute can be added"""
+        self.assertEqual("Aysha Ehab", self.b1.name)
 
     # _________________________________________________________
 
