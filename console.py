@@ -22,6 +22,7 @@ classes = {
     "State": State
 }
 
+
 class HBNBCommand(cmd.Cmd):
     """Entry point of the command interpreter"""
 
@@ -30,13 +31,13 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, cmd_line):
         """Quit command to exit the program"""
         return True
-    
+
     # ___________________________________________________________________________
 
     def do_EOF(self, cmd_line):
         """Exits after receiving the EOF signal"""
         return True
-    
+
     # ___________________________________________________________________________
 
     def emptyline(self):
@@ -177,6 +178,7 @@ class HBNBCommand(cmd.Cmd):
             pass
         setattr(v, cmd_line[2], cmd_line[3])
         storage.save()
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
