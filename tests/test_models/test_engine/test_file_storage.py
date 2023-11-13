@@ -119,3 +119,11 @@ class test_file_storage(unittest.TestCase):
 
         for v in all_objects.values():
             self.assertIsInstance(v, eval(v.__class__.__name__))
+
+    # _____________________________________________________________________________________
+
+    def test_all_method(self):
+        """Tests the all method"""
+
+        with self.assertRaises(TypeError):
+            self.storage.all(None)
