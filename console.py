@@ -12,6 +12,16 @@ from models.review import Review
 import shlex
 
 
+classes = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "Place": Place,
+    "Amenity": Amenity,
+    "City": City,
+    "Review": Review,
+    "State": State
+}
+
 class HBNBCommand(cmd.Cmd):
     """Entry point of the command interpreter"""
 
@@ -20,16 +30,19 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, cmd_line):
         """Quit command to exit the program"""
         return True
+    
     # ___________________________________________________________________________
 
     def do_EOF(self, cmd_line):
         """Exits after receiving the EOF signal"""
         return True
+    
     # ___________________________________________________________________________
 
     def emptyline(self):
         """an empty line + ENTER should not execute anything"""
         pass
+
     # ___________________________________________________________________________
 
     def do_create(self, cmd_line):
@@ -48,6 +61,7 @@ class HBNBCommand(cmd.Cmd):
 
         except Exception:
             print("** class doesn't exist **")
+
     # ___________________________________________________________________________
 
     def do_show(self, cmd_line):
@@ -75,6 +89,7 @@ class HBNBCommand(cmd.Cmd):
             print(v)
         except KeyError:
             print("** no instance found **")
+
     # ___________________________________________________________________________
 
     def do_destroy(self, cmd_line):
@@ -101,29 +116,27 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
         storage.save()
+
     # ___________________________________________________________________________
 
     def do_all(self, cmd_line):
-        """
-            Prints all string representation of all instances
-            based or not on the class name
-        """
-        list_of_obj = []
-
-        try:
-            if len(cmd_line) > 0:
-                eval(cmd_line)
-        except NameError:
-            print("** class doesn't exist **")
-            return
-        for k, v in storage.all().items():
-            if len(cmd_line) > 0:
-                if type(v) is eval(cmd_line):
-                    list_of_obj.append(v)
+        """ Print all instances in string representation """
+        list_obj = []
+        dict_obj = storage.all()
+        if len(cmd_line) == 0:
+            list_obj = [str(v) for v in dict_obj.values()]
+            print(list_obj)
+        else:
+            cmd = cmd_line.split(" ")
+            if cmd[0] in classes:
+                for k, v in dict_obj.items():
+                    class_name = k.split(".")
+                    if class_name[0] == cmd[0]:
+                        list_obj.append(str(v))
+                print(list_obj)
             else:
-                list_of_obj.append(v)
+                print("** class doesn't exist **")
 
-        print(list_of_obj)
     # ___________________________________________________________________________
 
     def do_update(self, cmd_line):
@@ -165,7 +178,5 @@ class HBNBCommand(cmd.Cmd):
         setattr(v, cmd_line[2], cmd_line[3])
         storage.save()
 
-
 if __name__ == "__main__":
-    """Entry point for the loop"""
     HBNBCommand().cmdloop()
