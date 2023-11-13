@@ -15,7 +15,6 @@ class test_base_model(unittest.TestCase):
     def setUp(self):
         """Initializes on each test method"""
         self.b1 = BaseModel()
-        self.b1.name = "Aysha Ehab"
 
     def tearDown(self):
         """Initilaizes after each test method"""
