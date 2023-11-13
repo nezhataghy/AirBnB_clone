@@ -31,10 +31,13 @@ class test_base_model(unittest.TestCase):
 
     # _________________________________________________________
 
-    def test_adding_name(self):
-        """Checks that an attribute can be added"""
+    def test_str_method(self):
+        """Tests the string representation of an instance"""
 
-        self.assertEqual("Aysha Ehab", self.b1.name)
+        str_format = (f"[{self.b1.__class__.__name__}] ({self.b1.id})"
+                      f" {self.b1.__dict__}")
+
+        self.assertEqual(str(self.b1), str_format)
 
     # _________________________________________________________
 
