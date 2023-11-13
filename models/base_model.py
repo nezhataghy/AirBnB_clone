@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-
 """This module is the base model"""
-
 
 from uuid import uuid4
 from datetime import datetime

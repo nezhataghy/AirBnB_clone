@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-""" Subclass User """
+"""Subclass User"""
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """ Inherits from BaseModel"""
+    """Inherits from BaseModel"""
 
     email = ""
     password = ""

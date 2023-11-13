@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-""" Subclass Review """
+"""Subclass Review"""
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """ Inherits from BaseModel"""
+    """Inherits from BaseModel"""
 
     place_id = ""
     user_id = ""

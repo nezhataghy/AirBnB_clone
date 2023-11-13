@@ -56,7 +56,7 @@ class FileStorage:
 
         try:
             # convert the json string representation to dictionary represen
-            with open(self.__file_path, 'r') as rf:
+            with open(FileStorage.__file_path, 'r') as rf:
                 loaded_data = json.load(rf)
 
             # Create instance from the extracted dictionary representation
@@ -64,6 +64,6 @@ class FileStorage:
 
                 # Convert the values of the dictionary (obj_dict) to instances
                 instance = eval(k.split(".")[0])(**obj_dict)
-                self.__objects[k] = instance
+                FileStorage.__objects[k] = instance
         except FileNotFoundError:
             pass
