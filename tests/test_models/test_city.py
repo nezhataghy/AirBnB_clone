@@ -38,7 +38,7 @@ class TestUser(unittest.TestCase):
 
     def test_empty_att(self):
         """Test if attrs is None"""
-        self.review = City()
-        self.review.name = None
+        self.city = City()
+        self.city.name = None
 
-        self.assertIsNone(self.review.name)
+        self.assertIsNone(self.city.name)
