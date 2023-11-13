@@ -16,12 +16,6 @@ class TestAmenity(unittest.TestCase):
         self.a1 = Amenity()
         self.a1.name = "jacozy"
 
-    def tearDown(self):
-        """Initilaizes after each test method"""
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
     def test_instance_init(self):
         """tests that the Amenity class Inherits from BaseModel"""
         self.assertIsInstance(self.a1, BaseModel)

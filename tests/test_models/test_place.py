@@ -26,12 +26,6 @@ class TestPlace(unittest.TestCase):
         self.p1.longitude = 6.5
         self.p1.amenity_ids = ['pool', 'football']
 
-    def tearDown(self):
-        """Initilaizes after each test method"""
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
     def test_instance_init(self):
         """tests that the Place class Inherits from BaseModel"""
         self.assertIsInstance(self.p1, BaseModel)

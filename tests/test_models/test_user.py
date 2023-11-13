@@ -15,12 +15,6 @@ class TestUser(unittest.TestCase):
         """Initializes on each test method"""
         self.u1 = User()
 
-    def tearDown(self):
-        """Initilaizes after each test method"""
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
     def test_instance_init(self):
         """tests that the User class Inherits from BaseModel"""
         self.assertIsInstance(self.u1, BaseModel)

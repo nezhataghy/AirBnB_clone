@@ -10,18 +10,13 @@ from models.review import Review
 
 class TestReview(unittest.TestCase):
     """Test cases for Review Class"""
+
     def setUp(self):
         """Initializes on each test method"""
         self.r1 = Review()
         self.r1.place_id = "21412"
         self.r1.user_id = "75222"
         self.r1.text = "Excellent, It's good"
-
-    def tearDown(self):
-        """Initilaizes after each test method"""
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
 
     def test_instance_init(self):
         """tests that the Review class Inherits from BaseModel"""

@@ -16,12 +16,6 @@ class TestState(unittest.TestCase):
         self.s1 = State()
         self.s1.name = "NYC"
 
-    def tearDown(self):
-        """Initilaizes after each test method"""
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
     def test_instance_init(self):
         """tests that the State class Inherits from BaseModel"""
         self.assertIsInstance(self.s1, BaseModel)
