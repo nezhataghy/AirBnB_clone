@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Tests User class"""
-
+"""Tests Review class"""
 
 import unittest
 import os
@@ -9,8 +8,8 @@ from models.base_model import BaseModel
 from models.review import Review
 
 
-class TestUser(unittest.TestCase):
-
+class TestReview(unittest.TestCase):
+    """Test cases for Review Class"""
     def setUp(self):
         """Initializes on each test method"""
         self.r1 = Review()
@@ -19,6 +18,7 @@ class TestUser(unittest.TestCase):
         self.r1.text = "Excellent, It's good"
 
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)

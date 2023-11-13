@@ -18,6 +18,7 @@ class test_base_model(unittest.TestCase):
         self.b1.name = "Aysha Ehab"
 
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)

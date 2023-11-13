@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Tests User class"""
-
+"""Tests Amenity class"""
 
 import unittest
 import os
@@ -9,7 +8,8 @@ from models.base_model import BaseModel
 from models.amenity import Amenity
 
 
-class TestUser(unittest.TestCase):
+class TestAmenity(unittest.TestCase):
+    """Test cases for Amenity Class"""
 
     def setUp(self):
         """Initializes on each test method"""
@@ -17,6 +17,7 @@ class TestUser(unittest.TestCase):
         self.a1.name = "jacozy"
 
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)

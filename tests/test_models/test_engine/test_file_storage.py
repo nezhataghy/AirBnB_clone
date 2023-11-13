@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Test module for file_storage"""
 
-
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -19,6 +18,7 @@ class test_file_storage(unittest.TestCase):
         self.storage = FileStorage()
 
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
@@ -70,14 +70,14 @@ class test_file_storage(unittest.TestCase):
     # _____________________________________________________________________________________
 
     def test_new_with_noArg(self):
-
+        """Test with no args"""
         with self.assertRaises(TypeError):
             self.storage.new()
 
     # _____________________________________________________________________________________
 
     def test_new_with_moreArgs(self):
-
+        """Test with many args"""
         with self.assertRaises(TypeError):
             self.storage.new("ehab", "aysha")
 

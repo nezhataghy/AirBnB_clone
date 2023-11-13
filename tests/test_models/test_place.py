@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Tests User class"""
-
+"""Tests Place class"""
 
 import unittest
 import os
@@ -9,7 +8,8 @@ from models.base_model import BaseModel
 from models.place import Place
 
 
-class TestUser(unittest.TestCase):
+class TestPlace(unittest.TestCase):
+    """Test cases for Place Class"""
 
     def setUp(self):
         """Initializes on each test method"""
@@ -26,8 +26,8 @@ class TestUser(unittest.TestCase):
         self.p1.longitude = 6.5
         self.p1.amenity_ids = ['pool', 'football']
 
-
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)

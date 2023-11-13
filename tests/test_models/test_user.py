@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Tests User class"""
 
-
 import os
 from models.engine.file_storage import FileStorage
 import unittest
@@ -10,12 +9,14 @@ from models.user import User
 
 
 class TestUser(unittest.TestCase):
+    """Test cases for User Class"""
 
     def setUp(self):
         """Initializes on each test method"""
         self.u1 = User()
 
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)

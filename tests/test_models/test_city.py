@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Tests User class"""
-
+"""Tests City class"""
 
 import unittest
 import os
@@ -9,7 +8,8 @@ from models.base_model import BaseModel
 from models.city import City
 
 
-class TestUser(unittest.TestCase):
+class TestCity(unittest.TestCase):
+    """Test cases for City Class"""
 
     def setUp(self):
         """Initializes on each test method"""
@@ -17,8 +17,8 @@ class TestUser(unittest.TestCase):
         self.c1.state_id = "21412"
         self.c1.name = "Alexandria"
 
-
     def tearDown(self):
+        """Initilaizes after each test method"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
