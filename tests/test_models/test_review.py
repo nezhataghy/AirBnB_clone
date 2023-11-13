@@ -27,6 +27,10 @@ class TestUser(unittest.TestCase):
         """tests that the Review class Inherits from BaseModel"""
         self.assertIsInstance(self.r1, BaseModel)
         self.assertIsInstance(self.r1, Review)
+        self.assertTrue(issubclass(Review, BaseModel))
+        self.assertIsInstance(self.r1.place_id, str)
+        self.assertIsInstance(self.r1.user_id, str)
+        self.assertIsInstance(self.r1.text, str)
 
     def test_review_attrs(self):
         """tests that the Review attributes are present"""

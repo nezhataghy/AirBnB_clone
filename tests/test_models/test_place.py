@@ -35,6 +35,8 @@ class TestUser(unittest.TestCase):
     def test_instance_init(self):
         """tests that the Place class Inherits from BaseModel"""
         self.assertIsInstance(self.p1, BaseModel)
+        self.assertIsInstance(self.p1, Place)
+        self.assertTrue(issubclass(Place, BaseModel))
         self.assertIsInstance(self.p1.city_id, str)
         self.assertIsInstance(self.p1.user_id, str)
         self.assertIsInstance(self.p1.name, str)
