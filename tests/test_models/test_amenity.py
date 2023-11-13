@@ -14,6 +14,7 @@ class TestAmenity(unittest.TestCase):
     def setUp(self):
         """Initializes on each test method"""
         self.a1 = Amenity()
+        self.a1.name = "jacozy"
 
     def test_instance_init(self):
         """tests that the Amenity class Inherits from BaseModel"""
