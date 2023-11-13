@@ -24,6 +24,7 @@ class TestUser(unittest.TestCase):
         """tests that the User class Inherits from BaseModel"""
         self.assertIsInstance(self.u1, BaseModel)
         self.assertIsInstance(self.u1, User)
+        self.assertTrue(issubclass(User, BaseModel))
 
     def test_user_attrs(self):
         """tests that the user attributes are present"""

@@ -25,6 +25,7 @@ class TestUser(unittest.TestCase):
         """tests that the State class Inherits from BaseModel"""
         self.assertIsInstance(self.s1, BaseModel)
         self.assertIsInstance(self.s1, State)
+        self.assertTrue(issubclass(State, BaseModel))
 
     def test_state_attrs(self):
         """tests that the State attributes are present"""
