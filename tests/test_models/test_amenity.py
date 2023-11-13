@@ -20,6 +20,11 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(self.a1, BaseModel)
         self.assertIsInstance(self.a1, Amenity)
         self.assertTrue(issubclass(Amenity, BaseModel))
+        self.assertIsInstance(self.a1.name, str)
+
+    def test_review_attrs(self):
+        """tests that the Amenity attributes are present"""
+        self.assertIn("name", self.a1.__dict__)
 
     def test_empty_att(self):
         """Test if attrs is None"""
